@@ -92,9 +92,10 @@ function getUserPosition() {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-
+    const mapKey = 'AIzaSyDKPOqXlI38Pn4p-3vmsvwi0z_4ESSHMDk'
     const elGoogleApi = document.createElement('script')
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${mapKey}`
     elGoogleApi.async = true
     document.body.append(elGoogleApi)
 
