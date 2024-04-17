@@ -9,7 +9,7 @@ header {
     /* background-color: var(--bg2); */
     background-image:
         linear-gradient(to bottom, rgba(116, 69, 69, 0.473), rgba(0, 0, 0, 0.589)),
-        url('/img/header.jpg');
+        url('img/header.jpg');
     background-size: cover;
     background-position: center;
     color: aliceblue;
