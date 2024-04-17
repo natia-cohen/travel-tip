@@ -39,11 +39,12 @@ function renderLocs(locs) {
 
     var strHTML = locs.map(loc => {
         const className = (loc.id === selectedLocId) ? 'active' : ''
+        loc.distance = utilService.getDistance(loc.geo, window.gUserPos, 'K')
         return `
         <li class="loc ${className}" data-id="${loc.id}">
             <h4>  
                 <span>${loc.name}</span>
-                <span> Distance: ${utilService.getDistance(loc.geo, window.gUserPos, 'K')} KM.</span>
+                <span> Distance: ${loc.distance} KM.</span>
                 <span title="${loc.rate} stars">${'★'.repeat(loc.rate)}</span>
             </h4>
             <p class="muted">
@@ -173,17 +174,20 @@ function onSelectLoc(locId) {
 }
 
 function displayLoc(loc) {
+    const distance = utilService.getDistance(loc.geo, window.gUserPos, 'K')
+    
     document.querySelector('.loc.active')?.classList?.remove('active')
     document.querySelector(`.loc[data-id="${loc.id}"]`).classList.add('active')
 
     mapService.panTo(loc.geo)
     mapService.setMarker(loc)
-
+   
     const el = document.querySelector('.selected-loc')
     el.querySelector('.loc-name').innerText = loc.name
     el.querySelector('.loc-address').innerText = loc.geo.address
     el.querySelector('.loc-rate').innerHTML = '★'.repeat(loc.rate)
     el.querySelector('[name=loc-copier]').value = window.location
+    el.querySelector('.loc-distance').innerText = `Distance ${distance} KM.`
     el.classList.add('show')
 
     utilService.updateQueryParams({ locId: loc.id })
