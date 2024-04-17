@@ -50,7 +50,7 @@ function query() {
                 const startIdx = gPageIdx * PAGE_SIZE
                 locs = locs.slice(startIdx, startIdx + PAGE_SIZE)
             }
-            console.log('gSortBy:', gSortBy)
+
             if (gSortBy.rate !== undefined) {
                 locs.sort((p1, p2) => (p1.rate - p2.rate) * gSortBy.rate)
 
@@ -58,7 +58,6 @@ function query() {
                 locs.sort((p1, p2) => p1.name.localeCompare(p2.name) * gSortBy.name)
 
             } else if (gSortBy.CreationTime !== undefined) {
-                console.log('gSortBy.CreationTime:', gSortBy.CreationTime)
                 locs.sort((p1, p2) => (p2.createdAt - p1.createdAt) * gSortBy.CreationTime)
             }
 
