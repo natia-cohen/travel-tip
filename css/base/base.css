@@ -2,10 +2,16 @@ body {
     background-color: var(--bg1);
     color: #eee;
     overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
-    background-color: var(--bg2);
+    /* background-color: var(--bg2); */
+    background-image:
+        linear-gradient(to bottom, rgba(116, 69, 69, 0.473), rgba(0, 0, 0, 0.589)),
+        url('/img/header.jpg');
+    background-size: cover;
+    background-position: center;
     color: aliceblue;
     padding: 0.3em;
 }
@@ -14,9 +20,14 @@ header h1 {
     margin: 0;
 }
 
-input[type=text],input[type=number] {
+header img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+input[type=text],
+input[type=number] {
     line-height: 2em;
-    background-color: var(--color1);
     border: 0;
 }
 
@@ -24,7 +35,7 @@ button {
     color: whitesmoke;
     border: 0;
     border-radius: .2em;
-    background-color: #222;
+    background-color: var(--color1);
     padding: 6px 10px;
     margin: 2px;
     cursor: pointer;
@@ -44,4 +55,3 @@ button:hover {
 .smaller {
     font-size: .8em;
 }
-
