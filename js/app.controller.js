@@ -33,6 +33,7 @@ function onInit() {
 }
 
 function renderLocs(locs) {
+    console.log('locs', locs)
     const selectedLocId = getLocIdFromQueryParams()
     // console.log('locs:', locs)
     var strHTML = locs.map(loc => {

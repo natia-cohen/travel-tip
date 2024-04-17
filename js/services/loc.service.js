@@ -70,7 +70,9 @@ function getById(locId) {
 }
 
 function remove(locId) {
-    return storageService.remove(DB_KEY, locId)
+    const removeLoc = confirm('Are you sure you want to delete the location?')
+    if (removeLoc) return storageService.remove(DB_KEY, locId)
+    return
 }
 
 function save(loc) {
