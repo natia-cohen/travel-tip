@@ -98,26 +98,40 @@ function onSearchAddress(ev) {
         })
 }
 
-function onAddLoc(geo) {
-    const locName = prompt('Loc name', geo.address || 'Just a place')
-    if (!locName) return
 
-    const loc = {
-        name: locName,
-        rate: +prompt(`Rate (1-5)`, '3'),
-        geo
-    }
-    locService.save(loc)
-        .then((savedLoc) => {
-            flashMsg(`Added Location (id: ${savedLoc.id})`)
-            utilService.updateQueryParams({ locId: savedLoc.id })
-            loadAndRenderLocs()
-        })
-        .catch(err => {
-            console.error('OOPs:', err)
-            flashMsg('Cannot add location')
-        })
+function onAddLoc(geo) {
+    console.log('geo', geo)
+    openAddLocDialog()
+
+    const elForm = document.querySelector('.add-loc-form')
+
+    elForm.addEventListener('submit', (ev) => {
+        ev.preventDefault()
+
+        const elLocName = document.querySelector('input[name="locName"]').value
+        const elLocRate = parseInt(document.querySelector('input[name="locRate"]').value)
+
+        const loc = {
+            name: elLocName,
+            rate: elLocRate,
+            geo
+        }
+
+        locService.save(loc)
+            .then((savedLoc) => {
+                flashMsg(`Added Location (id: ${savedLoc.id})`);
+                utilService.updateQueryParams({ locId: savedLoc.id });
+                loadAndRenderLocs()
+                closeAddLocDialog()
+            })
+            .catch(err => {
+                console.error('OOPs:', err)
+                flashMsg('Cannot add location')
+                closeAddLocDialog()
+            })
+    })
 }
+
 
 function loadAndRenderLocs() {
     locService.query()
@@ -175,13 +189,13 @@ function onSelectLoc(locId) {
 
 function displayLoc(loc) {
     const distance = utilService.getDistance(loc.geo, window.gUserPos, 'K')
-    
+
     document.querySelector('.loc.active')?.classList?.remove('active')
     document.querySelector(`.loc[data-id="${loc.id}"]`).classList.add('active')
 
     mapService.panTo(loc.geo)
     mapService.setMarker(loc)
-   
+
     const el = document.querySelector('.selected-loc')
     el.querySelector('.loc-name').innerText = loc.name
     el.querySelector('.loc-address').innerText = loc.geo.address
@@ -315,3 +329,15 @@ function cleanStats(stats) {
     }, [])
     return cleanedStats
 }
+
+function openAddLocDialog() {
+    const elLoc = document.querySelector('.add-loc')
+    elLoc.showModal()
+}
+
+function closeAddLocDialog() {
+    const elLoc = document.querySelector('.add-loc')
+    elLoc.close()
+}
+
+

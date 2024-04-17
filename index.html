@@ -73,6 +73,19 @@
                 </section>
             </section>
         </div>
+
+        <dialog class="add-loc">
+            <form method="dialog" class="add-loc-form">
+                <label for="locName">Location Name:</label>
+                <input type="text" id="locName" name="locName" required>
+
+                <label for="locRate">Rate (1-5):</label>
+                <input type="number" id="locRate" name="locRate" min="1" max="5" value="3" required>
+
+                <button type="submit">Save</button>
+            </form>
+        </dialog>
+
     </main>
     <pre class="debug" hidden></pre>
     <div class="user-msg"></div>
