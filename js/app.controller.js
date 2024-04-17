@@ -3,6 +3,7 @@ import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
 window.onload = onInit
+window.gUserPos = { lat: 32.8027, lng: 34.9848 }
 
 // To make things easier in this project structure 
 // functions that are called from DOM are defined on a global app object
@@ -35,13 +36,14 @@ function onInit() {
 function renderLocs(locs) {
     console.log('locs', locs)
     const selectedLocId = getLocIdFromQueryParams()
-    // console.log('locs:', locs)
+
     var strHTML = locs.map(loc => {
         const className = (loc.id === selectedLocId) ? 'active' : ''
         return `
         <li class="loc ${className}" data-id="${loc.id}">
             <h4>  
                 <span>${loc.name}</span>
+                <span> Distance: ${utilService.getDistance(loc.geo, window.gUserPos, 'K')} KM.</span>
                 <span title="${loc.rate} stars">${'★'.repeat(loc.rate)}</span>
             </h4>
             <p class="muted">
@@ -132,7 +134,9 @@ function onPanToUserPos() {
             unDisplayLoc()
             loadAndRenderLocs()
             flashMsg(`You are at Latitude: ${latLng.lat} Longitude: ${latLng.lng}`)
+            window.gUserPos = latLng
         })
+        .then(renderLocs)
         .catch(err => {
             console.error('OOPs:', err)
             flashMsg('Cannot get your position')
