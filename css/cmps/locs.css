@@ -13,6 +13,7 @@
     padding-bottom: .2em;
     border-bottom: 1px solid #222;
 }
+
 .loc-list li h4 {
     display: flex;
     justify-content: space-between;
@@ -22,8 +23,8 @@
     color: var(--color3);
 }
 
-.loc-list li.active .muted{
-    color: var(--color4);
+.loc-list li.active .muted {
+    color: var(--color3);
 }
 
 .loc-btns {
@@ -41,15 +42,16 @@
 }
 
 .btn-user-pos {
-    background-color: var(--bg2);
+    background-color: var(--color1);
     background-image: url(../../img/user-loc.png);
     background-size: cover;
     width: 2em;
     height: 2em;
 }
-.btn-user-pos:hover {
+
+/* .btn-user-pos:hover {
     background-color: whitesmoke;
-}
+} */
 
 .loc-filter {
     background-color: var(--bg1);
