@@ -71,9 +71,7 @@ function getById(locId) {
 }
 
 function remove(locId) {
-    const removeLoc = confirm('Are you sure you want to delete the location?')
-    if (removeLoc) return storageService.remove(DB_KEY, locId)
-    return
+    return storageService.remove(DB_KEY, locId)
 }
 
 function save(loc) {
@@ -166,7 +164,6 @@ function _createLoc(name = '', rate = 3, geoData, updatedAt = Date.now()) {
         name,
         rate,
         updatedAt,
-        distance: 0,
         createdAt: updatedAt = utilService.randomPastTime(),
         geo: {
             lat: geoData.lat || 0,
@@ -177,67 +174,3 @@ function _createLoc(name = '', rate = 3, geoData, updatedAt = Date.now()) {
     }
 }
 
-
-// function getEmptyLoc(name = '') {
-//     return {
-//         id: '',
-//         name,
-//         rate: 1,
-//         createdAt: Date.now(),
-//         updatedAt: Date.now(),
-//         geo: {
-//             lat: 0,
-//             lng: 0,
-//             zoom: 10,
-//             address: ''
-//         }
-//     }
-// }
-
-// function _createDemoLocs() {
-//     var locs =
-//         [
-//             {
-//                 name: "Ben Gurion Airport",
-//                 rate: 2,
-//                 geo: {
-//                     address: "Ben Gurion Airport, 7015001, Israel",
-//                     lat: 32.0004465,
-//                     lng: 34.8706095,
-//                     zoom: 12
-//                 },
-//             },
-//             {
-//                 name: "Dekel Beach",
-//                 rate: 4,
-//                 geo: {
-//                     address: "Derekh Mitsrayim 1, Eilat, 88000, Israel",
-//                     lat: 29.5393848,
-//                     lng: 34.9457792,
-//                     zoom: 15
-//                 },
-//             },
-//             {
-//                 name: "Dahab, Egypt",
-//                 rate: 5,
-//                 geo: {
-//                     address: "Dahab, South Sinai, Egypt",
-//                     lat: 28.5096676,
-//                     lng: 34.5165187,
-//                     zoom: 11
-//                 }
-//             }
-//         ]
-
-//     locs = locs.map(_createLoc)
-//         console.log('locs1', locs)
-//     utilService.saveToStorage(DB_KEY, locs)
-// }
-
-// function _createLoc(loc) {
-    
-//     loc.id = utilService.makeId()
-//     loc.createdAt = loc.updatedAt = utilService.randomPastTime()
-//     loc.distance = utilService.getDistance(loc. window.app.gUserPos )
-//     return loc
-// }

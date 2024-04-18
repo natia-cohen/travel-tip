@@ -17,6 +17,8 @@ window.app = {
     onShareLoc,
     onSetSortBy,
     onSetFilterBy,
+    openAddLocDialog,
+    closeAddLocDialog
 }
 
 function onInit() {
@@ -39,12 +41,12 @@ function renderLocs(locs) {
 
     var strHTML = locs.map(loc => {
         const className = (loc.id === selectedLocId) ? 'active' : ''
-        loc.distance = utilService.getDistance(loc.geo, window.gUserPos, 'K')
+        const distance = utilService.getDistance(loc.geo, window.gUserPos, 'K')
         return `
         <li class="loc ${className}" data-id="${loc.id}">
             <h4>  
                 <span>${loc.name}</span>
-                <span> Distance: ${loc.distance} KM.</span>
+                <span> Distance: ${distance} KM.</span>
                 <span title="${loc.rate} stars">${'★'.repeat(loc.rate)}</span>
             </h4>
             <p class="muted">
@@ -73,7 +75,8 @@ function renderLocs(locs) {
 }
 
 function onRemoveLoc(locId) {
-    locService.remove(locId)
+    const removeLoc = confirm('Are you sure you want to delete the location?')
+    if (removeLoc) locService.remove(locId)
         .then(() => {
             flashMsg('Location removed')
             unDisplayLoc()
@@ -341,3 +344,22 @@ function closeAddLocDialog() {
 }
 
 
+// function onUpdateLoc(locId) {
+//     locService.getById(locId)
+//         .then(loc => {
+//             const rate = prompt('New rate?', loc.rate)
+//             if (rate !== loc.rate) {
+//                 loc.rate = rate
+//                 locService.save(loc)
+//                     .then(savedLoc => {
+//                         flashMsg(`Rate was set to: ${savedLoc.rate}`)
+//                         loadAndRenderLocs()
+//                     })
+//                     .catch(err => {
+//                         console.error('OOPs:', err)
+//                         flashMsg('Cannot update location')
+//                     })
+
+//             }
+//         })
+// }
