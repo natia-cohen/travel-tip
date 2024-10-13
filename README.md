@@ -1,4 +1,4 @@
-# TravelTip
+# TravelTip - Interactive Location Display
 #### The app that gets you somewhere
 
 
